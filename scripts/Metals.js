@@ -1,10 +1,16 @@
-import { getMetals } from "./database.js"
+//this module returns html of all metals choices
+
+
+import { getMetals, setMetal } from "./database.js"
 
 const metals = getMetals()
 
 document.addEventListener(
     "change",
-    (event) => {
+    (event) => { 
+        if (event.target.name === "metal") {
+            setMetal(event.target.value)
+        }
     }
 )
 

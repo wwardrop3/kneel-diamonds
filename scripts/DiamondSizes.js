@@ -1,4 +1,7 @@
-import { getSizes } from "./database.js"
+//this module returns html of all size options and sets a temporary sizeId in the order builder when selected
+
+
+import { getSizes, setSize } from "./database.js"
 
 const sizes = getSizes()
 
@@ -6,7 +9,7 @@ document.addEventListener(
     "change",
     (event) => {
         if (event.target.name === "size") {
-            window.alert(``)
+            setSize(event.target.value)
         }
     }
 )

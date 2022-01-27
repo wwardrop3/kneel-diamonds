@@ -1,10 +1,15 @@
-import { getStyles } from "./database.js"
+//this module returns html of all style options and sets a temporary style valueId in the order builder when selected
+
+import { getStyles, setStyle } from "./database.js"
 
 const styles = getStyles()
 
 document.addEventListener(
     "change",
     (event) => {
+        if(event.target.name === "style") {
+            setStyle(event.target.value)
+        }
     }
 )
 

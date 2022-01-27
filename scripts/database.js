@@ -1,3 +1,5 @@
+import { buildOrderListItem, Orders } from "./Orders.js"
+
 /*
 
     This module contains all of the data, or state, for the
@@ -6,6 +8,9 @@
 
 */
 const database = {
+    orderBuilder: {
+   
+    },
     styles: [
         { id: 1, style: "Classic", price: 500 },
         { id: 2, style: "Modern", price: 710 },
@@ -49,5 +54,45 @@ export const getStyles = () => {
 }
 
 export const getOrders = () => {
-    return database.orders.map(order => ({...order}))
+    return database.customOrders.map(customOrder => ({...customOrder}))
+}
+
+//these functions take in the id of the object clicked on and temporarily saves it to the order builder, it changes everytime a user makes a new selection
+export const setMetal = (id) => {
+    database.orderBuilder.metalId = id
+}
+
+export const setSize = (id) => {
+    database.orderBuilder.sizeId = id
+}
+
+export const setStyle = (id) => {
+    database.orderBuilder.styleId = id
+}
+
+//this function will permanantly save the temporary data in orderBuilder
+export const addCustomOrder = () => {
+    //copy current state of user choices variable
+    const newOrder = {...database.orderBuilder}
+
+    //add timestamp
+    newOrder.timestamp = Date.now()
+    
+    //find the last index of the orders array
+    const lastIndex = database.customOrders.length - 1
+    
+    //find the id of the last orders array object
+    newOrder.id = database.customOrders[lastIndex].id + 1
+
+    //push new order to custom orders array
+    database.customOrders.push(newOrder)
+
+    //clear the data in the temp orderbuilder array
+    database.orderBuilder={}
+
+
+    //broadcast notification that the permenant state of customorders has changed
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+    
+
 }
