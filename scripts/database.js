@@ -41,21 +41,27 @@ const database = {
     ]
 }
 
+
+//exports the get metals data array
 export const getMetals = () => {
     return database.metals.map(metal => ({...metal}))
 }
 
+//exports the get sizes data array
 export const getSizes = () => {
     return database.sizes.map(size => ({...size}))
 }
 
+//exports the get styles data array
 export const getStyles = () => {
     return database.styles.map(style => ({...style}))
 }
 
+//exports the get customOrders data array
 export const getOrders = () => {
     return database.customOrders.map(customOrder => ({...customOrder}))
 }
+
 
 //these functions take in the id of the object clicked on and temporarily saves it to the order builder, it changes everytime a user makes a new selection
 export const setMetal = (id) => {

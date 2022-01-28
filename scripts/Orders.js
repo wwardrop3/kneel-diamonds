@@ -3,42 +3,47 @@ import {  getMetals, getOrders, getStyles, getSizes } from "./database.js"
 
 
 
-
 //turns the new order into a list item to be display
 export const buildOrderListItem = (order) => {
-
-    //returns object
-    const foundMetal = getMetals().find(
+    const metals = getMetals()
+    const foundMetal = metals.find(
+        //returns OBJECT
         (metal) => {
-            if(metal.id === parseInt(order.metalId)){
-                return true
-            }
-            return false
-        })
-        //returns object
-    const foundPrice = getSizes().find(
-        (size) => {
-            if(size.id === parseInt(order.sizeId)){
-                return true
-            }
-            return false
+            return metal.id === parseInt(order.metalId)
         }
     )
     
-    //returns object
-    const foundStyle = getStyles().find(
-        (style) => {
-            if(style.id === parseInt(order.styleId)){
-                return true
-            }
-            return false
+    let totalCost = foundMetal.price
+    
+    const sizes = getSizes()
+    const foundSize = sizes.find(
+        //RETURNS OBJECT
+        (size) => {
+            //returns the first object that meets the criteria below
+            return size.id === parseInt(order.sizeId)
         }
     )
-    //adds each price property value from the found objects
-    const price = foundStyle.price + foundStyle.price + foundMetal.price
+    totalCost += foundSize.price
+       
+    const styles = getStyles()
+    const foundStyle = styles.find (
+        (style) => {
+            return style.id === parseInt(order.styleId)
+        }
+    )
+
+    totalCost += foundStyle.price
+
+    //iterpolate metal price to get the right formatting
+    const costString = totalCost.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD"
+    })
+
+    
 
     return `<li>
-        Order #${order.id} was placed on ${order.timestamp} and costs $${price}
+        Order #${order.id} costs ${costString}
     </li>`
 }
 

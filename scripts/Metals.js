@@ -2,6 +2,7 @@
 
 
 import { getMetals, setMetal } from "./database.js"
+import { Orders } from "./Orders.js"
 
 const metals = getMetals()
 

@@ -7,18 +7,6 @@ import { addCustomOrder } from "./database.js"
 
 
 
-
-
-
-document.addEventListener(
-    "click",
-    (event) => {
-        if(event.target.id === "orderButton") {
-            addCustomOrder()
-        }
-    }
-)
-
 export const KneelDiamonds = () => {
     return `
         <h1>Kneel Diamonds</h1>
@@ -51,3 +39,11 @@ export const KneelDiamonds = () => {
     `
 }
 
+document.addEventListener(
+    "click",
+    (event) => {
+        if(event.target.id === "orderButton") {
+            addCustomOrder()
+        }
+    }
+)
