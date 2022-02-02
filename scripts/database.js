@@ -30,12 +30,18 @@ const database = {
         { id: 4, metal: "Platinum", price: 795.45 },
         { id: 5, metal: "Palladium", price: 1241.0 }
     ],
+    types: [
+        {id: 1, name: "Ring", multiplier: 1},
+        {id: 2, name: "Earing", multiplier: 2},
+        {id: 3, name: "Necklace", multiplier: 4},
+    ],
     customOrders: [
         {
             id: 1,
             metalId: 3,
             sizeId: 2,
             styleId: 3,
+            typeId: 1,
             timestamp: 1614659931693
         }
     ]
@@ -57,10 +63,15 @@ export const getStyles = () => {
     return database.styles.map(style => ({...style}))
 }
 
+export const getTypes = () => {
+    return database.types.map(type => ({...type}))
+}
+
 //exports the get customOrders data array
 export const getOrders = () => {
     return database.customOrders.map(customOrder => ({...customOrder}))
 }
+
 
 
 //these functions take in the id of the object clicked on and temporarily saves it to the order builder, it changes everytime a user makes a new selection
@@ -74,6 +85,10 @@ export const setSize = (id) => {
 
 export const setStyle = (id) => {
     database.orderBuilder.styleId = id
+}
+
+export const setType = (id) => {
+    database.orderBuilder.typeId = id
 }
 
 //this function will permanantly save the temporary data in orderBuilder

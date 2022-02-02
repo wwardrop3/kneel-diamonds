@@ -1,26 +1,26 @@
 //this module returns html of all style options and sets a temporary style valueId in the order builder when selected
 
-import { getStyles, setStyle } from "./database.js"
+import { getTypes, setType } from "./database.js"
 
-const styles = getStyles()
+const types = getTypes()
 
 document.addEventListener(
     "change",
     (event) => {
-        if(event.target.name === "style") {
-            setStyle(event.target.value)
+        if(event.target.name === "type") {
+            setType(event.target.value)
         }
     }
 )
 
-export const JewelryStyles = () => {
+export const JewelryTypes = () => {
     let html = "<ul>"
 
     // Use .map() for converting objects to <li> elements
-    const listItemsArray = styles.map(
-        (style) => {
+    const listItemsArray = types.map(
+        (type) => {
             return `<li>
-            <input type="radio" name="style" value="${style.id}" /> ${style.style}
+            <input type="radio" name="type" value="${type.id}" /> ${type.name}
         </li>`
         }
     )
@@ -32,4 +32,3 @@ export const JewelryStyles = () => {
     html += "</ul>"
     return html
 }
-
